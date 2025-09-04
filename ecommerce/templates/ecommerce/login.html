@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | Stationery Shop</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons (optional) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="landing_page.css"> <!-- Your existing CSS -->
+
+  <style>
+    body {
+      background-color: #ffffff; /* PURE WHITE */
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .login-card {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0px 8px 20px rgba(0,0,0,0.08);
+      width: 100%;
+      max-width: 400px;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-card h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #FD7E14;
+      font-weight: 700;
+      font-size: 28px;
+    }
+
+    .form-control {
+      border-radius: 8px;
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+    }
+
+    .form-control:focus {
+      border-color: #FD7E14;
+      box-shadow: 0 0 0 0.2rem rgba(253, 126, 20, 0.25);
+    }
+
+    .btn-orange {
+      background-color: #FD7E14;
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      padding: 10px 0;
+    }
+    .btn-orange:hover {
+      background-color: #e86400;
+      color: white;
+    }/* Navbar Styling */
+.navbar {
+  background-color: #ffffff;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.navbar .navbar-brand {
+  font-weight: bold;
+  font-size: 24px;
+  color: #FD7E14;
+}
+
+.navbar .ms-auto {
+  margin-left: auto !important;
+}
+
+.navbar .btn-orange {
+  background-color: #FD7E14;
+  color: #ffffff;
+  border-radius: 6px;
+  padding: 8px 20px;
+  font-weight: bold;
+  border: none;
+}
+
+.navbar .btn-orange:hover {
+  background-color: #e86400;
+  color: #ffffff;
+}
+
+/* Login Card Styling */
+.login-card {
+  background: #ffffff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0px 8px 20px rgba(0,0,0,0.08);
+  width: 100%;
+  max-width: 400px;
+  animation: fadeIn 1s ease;
+}
+
+.login-card h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #FD7E14;
+  font-weight: 700;
+  font-size: 28px;
+}
+
+.form-control {
+  border-radius: 8px;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  padding: 10px;
+}
+
+.form-control:focus {
+  border-color: #FD7E14;
+  box-shadow: 0 0 0 0.2rem rgba(253, 126, 20, 0.25);
+}
+
+.btn-orange {
+  background-color: #FD7E14;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 10px 0;
+}
+
+.btn-orange:hover {
+  background-color: #e86400;
+  color: white;
+}
+
+/* Footer Styling */
+footer.bg-orange {
+  background-color: #FD7E14;
+  color: #ffffff;
+  padding: 10px 0;
+  font-size: 14px;
+  text-align: center;
+  width: 100%;
+}
+
+footer.bg-orange a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+footer.bg-orange a:hover {
+  text-decoration: underline;
+}
+
+footer.bg-orange .bi {
+  font-size: 22px;
+  margin: 0 8px;
+}
+nav{
+    width: 100%;
+}
+.login-footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .login-footer a {
+      color: #FD7E14;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .login-footer a:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Craft Studio</a>
+        <div class="ms-auto">
+          <a href="#" class="btn btn-orange">Admin</a>
+        </div>
+      </div>
+    </nav>
+  
+    <!-- Main Content -->
+    <main class="flex-grow-1 d-flex align-items-center justify-content-center">
+      <div class="login-card">
+        <h2>Login to Your Account</h2>
+  
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+  
+          <div class="d-grid mt-4">
+            <button type="submit" class="btn btn-orange">Login</button>
+          </div>
+        </form>
+  
+        <div class="login-footer">
+          <p>Don't have an account? <a href="{% url 'signup' %}">Signup here</a></p>
+        </div>
+      </div>
+    </main>
+  
+    <!-- Footer -->
+    <footer class="bg-orange text-white text-center py-2">
+      <div class="container">
+        <p class="mb-1">© 2025 Stationery Shop</p>
+        <div>
+          <a href="#"><i class="bi bi-facebook text-white me-2"></i></a>
+          <a href="#"><i class="bi bi-instagram text-white me-2"></i></a>
+          <a href="#"><i class="bi bi-twitter text-white"></i></a>
+        </div>
+      </div>
+    </footer>
+  
+  </body>
+  
+</html>

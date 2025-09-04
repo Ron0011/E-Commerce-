@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home - Products</title>
+</head>
+<body>
+    <h2>All Products</h2>
+
+    {% for product in products %}
+        <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+            <h3>{{ product.name }}</h3>
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" width="150">
+            {% endif %}
+            <p>{{ product.description|slice:":100" }}...</p>
+            <p><strong>Price:</strong> ${{ product.price }}</p>
+
+            <form method="post" action="{% url 'add_to_cart' product.id %}">
+                {% csrf_token %}
+                <button type="submit">Add to Cart</button>
+            </form>
+
+        </div>
+    {% endfor %}
+</body>
+</html>

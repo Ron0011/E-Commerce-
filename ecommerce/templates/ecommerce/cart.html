@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cart | Stationery Shop</title>
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'landing_page.css' %}">
+
+  <style>
+    .btn-orange {
+      background-color: #FD7E14;
+      color: white;
+      font-weight: bold;
+      border-radius: 6px;
+    }
+    .btn-orange:hover {
+      background-color: #e86400;
+      color: white;
+    }
+    .cart-table th, .cart-table td {
+      vertical-align: middle;
+      text-align: center;
+    }
+    .cart-total {
+      font-size: 18px;
+      font-weight: 600;
+    }
+    footer.bg-orange {
+      background-color: #FD7E14;
+      color: white;
+      padding: 15px 0;
+      text-align: center;
+    }
+    footer .bi {
+      font-size: 22px;
+      margin: 0 8px;
+    }
+  </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Craft Studio</a>
+    <div class="ms-auto d-flex align-items-center gap-3">
+      <a href="{% url 'products' %}" class="btn btn-orange">
+        <i class="bi bi-grid"></i> Products
+      </a>
+      <a href="{% url 'order_history' %}" class="btn btn-orange">
+        <i class="bi bi-clock-history"></i> Orders
+      </a>
+      <a href="{% url 'logout' %}" class="btn btn-outline-dark">
+        <i class="bi bi-box-arrow-right"></i> Logout
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Cart Content -->
+<main class="container my-5 flex-grow-1">
+
+  <h3 class="mb-4 text-center text-orange">Your Cart</h3>
+
+  {% if cart_items %}
+    <div class="table-responsive">
+      <table class="table table-bordered cart-table align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in cart_items %}
+            <tr>
+              <td>{{ item.product.name }}</td>
+              <td>₹{{ item.product.price }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>₹{{ item.product.price|floatformat:2|add:""|floatformat:2|add:item.quantity }}</td>
+              <td>
+                <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-sm btn-outline-danger">
+                  <i class="bi bi-trash"></i>
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="d-flex justify-content-end">
+      <p class="cart-total">Total: ₹{{ total_price }}</p>
+    </div>
+
+    <!-- Payment Form -->
+    <form method="post" action="{% url 'confirm_order' %}">
+      {% csrf_token %}
+
+      <div class="mb-4">
+        <h5>Payment Method:</h5>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="payment_method" id="cod" value="COD" checked>
+          <label class="form-check-label" for="cod">Cash on Delivery</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="payment_method" id="upi" value="UPI">
+          <label class="form-check-label" for="upi">UPI</label>
+        </div>
+      </div>
+
+      <div class="text-end mt-4">
+        <button type="submit" class="btn btn-orange btn-lg">Place Order (Cash / UPI)</button>
+      </div>
+    </form>
+
+  {% else %}
+    <p class="text-center text-muted">Your cart is empty.</p>
+  {% endif %}
+</main>
+
+<!-- Footer -->
+<footer class="bg-orange mt-auto">
+  <div class="container">
+    <p class="mb-2">© 2025 Stationery Shop</p>
+    <div>
+      <a href="#"><i class="bi bi-facebook text-white"></i></a>
+      <a href="#"><i class="bi bi-instagram text-white"></i></a>
+      <a href="#"><i class="bi bi-twitter text-white"></i></a>
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

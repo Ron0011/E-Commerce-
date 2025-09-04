@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Successful | Stationery Shop</title>
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'landing_page.css' %}">
+
+  <style>
+    .btn-orange {
+      background-color: #FD7E14;
+      color: white;
+      font-weight: bold;
+      border-radius: 6px;
+    }
+    .btn-orange:hover {
+      background-color: #e86400;
+    }
+    footer.bg-orange {
+      background-color: #FD7E14;
+      color: white;
+      padding: 15px 0;
+      text-align: center;
+    }
+    footer .bi {
+      font-size: 22px;
+      margin: 0 8px;
+    }
+  </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Craft Studio</a>
+    <div class="ms-auto d-flex align-items-center gap-3">
+      <a href="{% url 'products' %}" class="btn btn-orange">
+        <i class="bi bi-grid"></i> Products
+      </a>
+      <a href="{% url 'view_cart' %}" class="btn btn-orange">
+        <i class="bi bi-cart-fill"></i> Cart
+      </a>
+      <a href="{% url 'order_history' %}" class="btn btn-orange">
+        <i class="bi bi-clock-history"></i> Orders
+      </a>
+      <a href="{% url 'logout' %}" class="btn btn-outline-dark">
+        <i class="bi bi-box-arrow-right"></i> Logout
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<main class="container my-5 flex-grow-1">
+
+  <div class="text-center mb-5">
+    <h2 class="text-success"><i class="bi bi-check-circle-fill"></i> Order Placed Successfully!</h2>
+    <p class="lead">Thank you for your purchase, {{ request.user.first_name|default:request.user.username }}.</p>
+    <p>Your order <strong>#{{ order.id }}</strong> has been placed on <strong>{{ order.created_at|date:"F j, Y, g:i a" }}</strong>.</p>
+    <p>Payment Method: <strong>{{ order.payment_method }}</strong></p>
+  </div>
+
+  <h5>Order Summary:</h5>
+  <ul class="list-group mb-4">
+    {% for item in order.items.all %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{ item.product.name }} × {{ item.quantity }}
+        <span>₹{{ item.item_price|floatformat:2 }}</span>
+      </li>
+    {% endfor %}
+    <li class="list-group-item d-flex justify-content-between fw-bold">
+      Total Paid
+      <span>₹{{ order.total_price|floatformat:2 }}</span>
+    </li>
+  </ul>
+
+  <div class="text-end">
+    <a href="{% url 'products' %}" class="btn btn-outline-secondary me-2">
+      <i class="bi bi-shop"></i> Continue Shopping
+    </a>
+    <a href="{% url 'order_history' %}" class="btn btn-orange">
+      <i class="bi bi-clock-history"></i> View Orders
+    </a>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-orange mt-auto">
+  <div class="container">
+    <p class="mb-2">© 2025 Stationery Shop</p>
+    <div>
+      <a href="#"><i class="bi bi-facebook text-white"></i></a>
+      <a href="#"><i class="bi bi-instagram text-white"></i></a>
+      <a href="#"><i class="bi bi-twitter text-white"></i></a>
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

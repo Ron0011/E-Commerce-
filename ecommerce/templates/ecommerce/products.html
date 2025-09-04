@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Products | Stationery Shop</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'landing_page.css' %}">
+
+  <style>
+    .btn-orange {
+      background-color: #FD7E14;
+      color: white;
+      font-weight: bold;
+      border-radius: 6px;
+    }
+    .btn-orange:hover {
+      background-color: #e86400;
+      color: white;
+    }
+    .product-card {
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      padding: 15px;
+    }
+    .product-card h5 {
+      color: #FD7E14;
+      font-weight: 600;
+    }
+    .quantity-input {
+      width: 60px;
+      text-align: center;
+    }
+    footer.bg-orange {
+      background-color: #FD7E14;
+      color: white;
+      padding: 15px 0;
+      text-align: center;
+    }
+    footer .bi {
+      font-size: 22px;
+      margin: 0 8px;
+    }
+  </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Craft Studio</a>
+
+    <div class="ms-auto d-flex align-items-center gap-3">
+      <a href="{% url 'view_cart' %}" class="btn btn-orange">
+        <i class="bi bi-cart-fill"></i> Cart
+      </a>
+      <a href="{% url 'order_history' %}" class="btn btn-orange">
+        <i class="bi bi-clock-history"></i> Orders
+      </a>
+      <a href="{% url 'logout' %}" class="btn btn-outline-dark">
+        <i class="bi bi-box-arrow-right"></i> Logout
+      </a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- Main Content -->
+<main class="container my-5 flex-grow-1">
+
+  <!-- Tabs -->
+  <ul class="nav nav-tabs mb-4" id="productTabs" role="tablist">
+    {% for category_key, category_label in category_choices %}
+      <li class="nav-item" role="presentation">
+        <button class="nav-link {% if forloop.first %}active{% endif %}" id="tab-{{ category_key|slugify }}-tab"
+                data-bs-toggle="tab" data-bs-target="#tab-{{ category_key|slugify }}" type="button" role="tab">
+          {{ category_label }}
+        </button>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <!-- Tab Content -->
+  <div class="tab-content" id="productTabsContent">
+    {% for category_key, category_label in category_choices %}
+      <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="tab-{{ category_key|slugify }}" role="tabpanel">
+        <div class="row g-4">
+          {% for product in products %}
+            {% if product.category == category_key %}
+              <div class="col-md-4">
+                <div class="card product-card">
+                  {% if product.image %}
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                  {% endif %}
+                  <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description|truncatewords:15 }}</p>
+                    <p class="card-text fw-bold">₹{{ product.price }}</p>
+                    <form method="POST" action="{% url 'add_to_cart' product.id %}">
+                      {% csrf_token %}
+                      <div class="d-flex align-items-center mb-3">
+                        <label class="me-2">Qty:</label>
+                        <input type="number" name="quantity" value="1" min="1" class="form-control quantity-input">
+                      </div>
+                      <button type="submit" class="btn btn-orange w-100">Add to Cart</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-orange mt-auto">
+  <div class="container">
+    <p class="mb-2">© 2025 Stationery Shop</p>
+    <div>
+      <a href="#"><i class="bi bi-facebook text-white"></i></a>
+      <a href="#"><i class="bi bi-instagram text-white"></i></a>
+      <a href="#"><i class="bi bi-twitter text-white"></i></a>
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

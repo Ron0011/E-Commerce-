@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order History | Stationery Shop</title>
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'landing_page.css' %}">
+
+  <style>
+    .btn-orange {
+      background-color: #FD7E14;
+      color: white;
+      font-weight: bold;
+      border-radius: 6px;
+    }
+    .btn-orange:hover {
+      background-color: #e86400;
+    }
+    footer.bg-orange {
+      background-color: #FD7E14;
+      color: white;
+      padding: 15px 0;
+      text-align: center;
+    }
+    footer .bi {
+      font-size: 22px;
+      margin: 0 8px;
+    }
+  </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Craft Studio</a>
+    <div class="ms-auto d-flex align-items-center gap-3">
+      <a href="{% url 'products' %}" class="btn btn-orange">
+        <i class="bi bi-grid"></i> Products
+      </a>
+      <a href="{% url 'view_cart' %}" class="btn btn-orange">
+        <i class="bi bi-cart-fill"></i> Cart
+      </a>
+      <a href="{% url 'logout' %}" class="btn btn-outline-dark">
+        <i class="bi bi-box-arrow-right"></i> Logout
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Page Content -->
+<main class="container my-5 flex-grow-1">
+
+  <h3 class="text-center text-orange mb-4">Your Order History</h3>
+
+  {% if orders %}
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped text-center align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Order ID</th>
+            <th>Date</th>
+            <th>Payment Method</th>
+            <th>Total Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in orders %}
+            <tr>
+              <td>#{{ order.id }}</td>
+              <td>{{ order.created_at|date:"F j, Y - g:i A" }}</td>
+              <td>{{ order.payment_method }}</td>
+              <td>₹{{ order.total_price|floatformat:2 }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="text-center text-muted">You have no past orders yet.</p>
+  {% endif %}
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-orange mt-auto">
+  <div class="container">
+    <p class="mb-2">© 2025 Stationery Shop</p>
+    <div>
+      <a href="#"><i class="bi bi-facebook text-white"></i></a>
+      <a href="#"><i class="bi bi-instagram text-white"></i></a>
+      <a href="#"><i class="bi bi-twitter text-white"></i></a>
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

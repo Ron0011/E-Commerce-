@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Signup | Stationery Shop</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="landing_page.css"> <!-- Already includes orange theme -->
+
+  <style>
+    body {
+      background-color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    main.flex-grow-1 {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .signup-card {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0px 8px 20px rgba(0,0,0,0.08);
+      width: 100%;
+      max-width: 400px;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .signup-card h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #FD7E14;
+      font-weight: 700;
+      font-size: 28px;
+    }
+
+    .form-control {
+      border-radius: 8px;
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      padding: 10px;
+    }
+
+    .form-control:focus {
+      border-color: #FD7E14;
+      box-shadow: 0 0 0 0.2rem rgba(253, 126, 20, 0.25);
+    }
+
+    .btn-orange {
+      background-color: #FD7E14;
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      padding: 10px 0;
+    }
+    .btn-orange:hover {
+      background-color: #e86400;
+      color: white;
+    }
+
+    .signup-footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .signup-footer a {
+      color: #FD7E14;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .signup-footer a:hover {
+      text-decoration: underline;
+    }
+
+    footer.bg-orange {
+      background-color: #FD7E14;
+      color: #ffffff;
+      padding: 10px 0;
+      font-size: 14px;
+      text-align: center;
+      width: 100%;
+    }
+
+    footer.bg-orange .bi {
+      font-size: 22px;
+      margin: 0 8px;
+    }
+
+    nav {
+      width: 100%;
+    }
+    /* Form Container */
+    /* Body Layout */
+body {
+  background-color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Card Container */
+.signup-card {
+  background: #ffffff;
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  animation: fadeIn 1s ease;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Heading */
+.signup-card h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #FD7E14;
+  font-weight: 800;
+  font-size: 32px;
+}
+
+/* Form Label */
+.form-label {
+  font-weight: 500;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Input Field */
+.form-control {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  border-radius: 0;
+  padding: 10px 5px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+.form-control:focus {
+  border-bottom: 2px solid #FD7E14;
+  box-shadow: none;
+  outline: none;
+}
+
+/* Error Message */
+.text-danger {
+  font-size: 13px;
+  margin-top: -15px;
+  margin-bottom: 10px;
+  color: #dc3545;
+}
+
+/* Signup Button */
+.btn-orange {
+  background: linear-gradient(45deg, #FD7E14, #ffa94d);
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 30px;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+
+.btn-orange:hover {
+  background: linear-gradient(45deg, #e86400, #ff944d);
+  color: white;
+}
+
+/* Footer under form */
+.signup-footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.signup-footer a {
+  color: #FD7E14;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.signup-footer a:hover {
+  text-decoration: underline;
+}
+
+  </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Craft Studio</a>
+      <div class="ms-auto">
+        <a href="#" class="btn btn-orange">Admin</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-grow-1 d-flex align-items-center justify-content-center">
+    <div class="signup-card">
+      <h2>Create Your Account</h2>
+        <form method="post" novalidate>
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="id_username" class="form-label">Username</label>
+            {{ form.username }}
+            {% for error in form.username.errors %}
+              <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+          </div>
+        
+          <div class="mb-3">
+            <label for="id_password1" class="form-label">Password</label>
+            {{ form.password1 }}
+            {% for error in form.password1.errors %}
+              <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+          </div>
+        
+          <div class="mb-3">
+            <label for="id_password2" class="form-label">Confirm Password</label>
+            {{ form.password2 }}
+            {% for error in form.password2.errors %}
+              <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+          </div>
+        
+          <div class="d-grid mt-4">
+            <button type="submit" class="btn btn-orange">Signup</button>
+          </div>
+        </form>
+
+      <div class="signup-footer">
+        <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-orange text-white text-center py-2">
+    <div class="container">
+      <p class="mb-1">© 2025 Stationery Shop</p>
+      <div>
+        <a href="#"><i class="bi bi-facebook text-white me-2"></i></a>
+        <a href="#"><i class="bi bi-instagram text-white me-2"></i></a>
+        <a href="#"><i class="bi bi-twitter text-white"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
